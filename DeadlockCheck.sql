@@ -1,3 +1,4 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Reads deadlock graphs captured automatically by SQL Server
         
 SELECT 
@@ -16,3 +17,4 @@ CROSS APPLY TargetData.nodes('//RingBufferTarget/event[@name="xml_deadlock_repor
 -- Click View Target Data
 -- Click Filter (funnel icon)
 -- You can filter by Event name = xml_deadlock_report
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
