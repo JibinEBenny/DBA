@@ -1,0 +1,3 @@
+EXEC sp_who2;
+EXEC sp_who2 'active';
+DBCC INPUTBUFFER(<SPID>);  --then find SPID and run:
