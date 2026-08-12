@@ -1,5 +1,8 @@
 EXEC sp_who2;
 EXEC sp_who2 active;
+EXEC sp_whoisactive;   --Info includes full SQL queries, query plans, hardware usage, temp DB allocations, blocks and more.
+EXEC sp_WhoIsActive @get_plans = 1;  -- To get execution plans
+
 DBCC INPUTBUFFER(<SPID>);  --find SPID and run,Shows the query executed by a session:
 DBCC SQLPERF(LOGSPACE); --Shows log/data space usage
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -16,6 +19,17 @@ SELECT
     r.estimated_completion_time / 1000 AS remaining_seconds
 FROM sys.dm_exec_requests r
 WHERE r.percent_complete > 0;  
+
+--The bleow query will show the percentage of the particular session (very usefull while index REBUILD,REORGANZE)
+
+SELECT 
+    session_id, 
+    percent_complete, 
+    command, 
+    status, 
+    wait_type 
+FROM sys.dm_exec_requests 
+WHERE session_id = <session ID>;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 --List databases with size info
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,7 +44,7 @@ WHERE DB.source_database_id is null -- Exclude snapshots
 GROUP BY DB.name
 ORDER BY DataFileSizeMB DESC
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
---TO CHECK THE LOG BACKUP
+--TO CHECK THE LOG, DIFF, FULL BACKUPS
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 SELECT  top 115 a.server_name, a.database_name, backup_finish_date, a.backup_size,
 CASE a.[type] -- Let's decode the three main types of backup here
