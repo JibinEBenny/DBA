@@ -50,12 +50,12 @@ JOIN sys.indexes AS i
    AND ips.index_id = i.index_id
 ORDER BY ips.avg_fragmentation_in_percent DESC;
 
+--LIMITED     Scans only the parent-level pages of the B-tree; leaf pages are not read. For a heap, it examines PFS/IAM pages and scans the data pages.
 --SAMPLED   --It returns statistics based on a 1 percent sample of all the pages in the index or heap
 --DETAILED   –-It scans all pages and returns all statistics.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
--- Query to check fragmentation for the particular DB
--- Check index fragmentation for all indexes in the current database
+-- Query to check fragmentation for the particular DB .Check index fragmentation for all indexes in the current database
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 SELECT  
     OBJECT_NAME(ips.object_id) AS TableName,
