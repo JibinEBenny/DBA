@@ -1,5 +1,6 @@
 -- To list the files for a database with name , physical name, type, state, size this will give the current tempDB and its details : 
 
+
       SELECT DB_NAME(database_id) AS db,
              name            AS logical_name,
              physical_name,
