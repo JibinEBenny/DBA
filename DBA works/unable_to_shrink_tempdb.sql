@@ -38,3 +38,8 @@
     SELECT TOP 5 transaction_id, elapsed_time_seconds, session_id
     FROM sys.dm_tran_active_snapshot_database_transactions
     ORDER BY elapsed_time_seconds DESC;
+
+-- DBCC INPUTBUFFER shows the last SQL statement a session sent to the server.
+-- You use it to find out what a session is doing before you decide whether to wait for it, tune it, or kill it.
+
+   DBCC INPUTBUFFER(<session_id>);  
