@@ -45,7 +45,15 @@
 -- which may not shrink fully if tempdb is busy.
 -- Or restart SQL Server. Tempdb is rebuilt at the configured size, but you first need the configured size set to the smaller value, 
 -- and MODIFY FILE rejects that while the file is larger. So shrink first, then set the size.
-
+---------------------------------------------------------------------------------------+
+--                         Workload Typical tempdb size                                |
+---------------------------------------------------------------------------------------+
+--    Light OLTP	                                     |       1 to 2% of largest DB   |
+--    Mixed OLTP + reporting	                         |       5 to 10%                |
+--    Heavy analytics, large sorts, ETL	             |       10 to 25%               |
+--    OLAP / data warehouse (relational SQL queries)   |       15 to 25%               |
+---------------------------------------------------------------------------------------+
+            
 -- Make the original file match 
 
       ALTER DATABASE tempdb MODIFY FILE (NAME = tempdev, SIZE = 16GB, FILEGROWTH = 1GB);
