@@ -28,7 +28,8 @@
            (u.internal_objects_alloc_page_count - u.internal_objects_dealloc_page_count) * 8 / 1024 AS internal_mb
     FROM sys.dm_db_session_space_usage u
     JOIN sys.dm_exec_sessions s ON s.session_id = u.session_id
-    ORDER BY user_mb + internal_mb DESC;
+    ORDER BY ((u.user_objects_alloc_page_count - u.user_objects_dealloc_page_count)
+        + (u.internal_objects_alloc_page_count - u.internal_objects_dealloc_page_count)) DESC;
 
 -- Check for open transactions (version store)
 
