@@ -17,6 +17,10 @@
            SUM(unallocated_extent_page_count) * 8 / 1024 AS free_mb
     FROM tempdb.sys.dm_db_file_space_usage;
 
+-- user_objects_mb	Temp tables, table variables still in use
+-- internal_objects_mb	Sorts, hash spills, spools from running queries
+-- version_store_mb	Row versions held by snapshot isolation / RCSI, often by a long open transaction
+
 -- Find the sessions responsible
 
     SELECT TOP 10 s.session_id, s.login_name, s.host_name, s.status,
